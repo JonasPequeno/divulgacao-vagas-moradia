@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/fotosSlider"
+                android:layout_width="match_parent"
+                android:layout_height="187dp">
+
+            </android.support.v4.view.ViewPager>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Sobre o Imovel"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelSobreImovel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loremIpison" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Sobre a Vaga"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelSobreVaga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loremIpison" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Valor da Vaga"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelValorVaga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="R$ 150 " />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
