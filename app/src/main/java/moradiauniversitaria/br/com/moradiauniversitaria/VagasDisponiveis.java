@@ -1,25 +1,33 @@
 package moradiauniversitaria.br.com.moradiauniversitaria;
 
-import android.opengl.EGLExt;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import br.com.moradiauniversitaria.model.Imovel;
-
-import static android.R.layout.simple_list_item_1;
+import moradiaUniversitaria.model.Imovel;
+import moradiaUniversitaria.service.ImovelService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VagasDisponiveis extends Fragment {
 
+    public static final String FILTER_ACTION_KEY = "any_key";
+
     private View view;
-    ArrayList<String> listaImoveis = new ArrayList<String>();
+    private List<Imovel> imoveis = new ArrayList<>();
+
 
     public void VagasDisponiveis () {}
 
@@ -27,8 +35,10 @@ public class VagasDisponiveis extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragmento_vagas_disponiveis, container, false);
-        mostraDadosLista();
 
+        Intent intent = new Intent(view.getContext(),MyService.class);
+
+        getImovel();
         return view;
     };
 
@@ -41,22 +51,36 @@ public class VagasDisponiveis extends Fragment {
         return dados;
     }
 
+    public void getImovel () {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ImovelService.URL_BASE)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ImovelService service = retrofit.create(ImovelService.class);
+        Call<List<Imovel>> callService = service.getImoveis();
+
+        callService.enqueue(new Callback<List<Imovel>>() {
+            @Override
+            public void onResponse(Call<List<Imovel>> call, Response<List<Imovel>> response) {
+                if(response.isSuccessful()) {
+                    imoveis = response.body();
+                    mostraDadosLista();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Imovel>> call, Throwable t) {
+                Log.i("Erro nessa bosta!", t.getMessage());
+
+            }
+        });
+    }
+
     private  void mostraDadosLista () {
 
         ListView vagas = (ListView) view.findViewById(R.id.listaVagas);
-        preencherDados(this.listaImoveis);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, this.listaImoveis);
+        ArrayAdapter<Imovel> adapter = new ArrayAdapter<Imovel>(view.getContext(),
+                android.R.layout.simple_list_item_1, imoveis);
         vagas.setAdapter(adapter);
-
-        vagas.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                getFragmentManager()
-                        .beginTransaction().replace(R.id.fragment,  new InfoImovel())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
     }
 }

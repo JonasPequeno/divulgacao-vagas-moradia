@@ -17,7 +17,8 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 
-import br.com.moradiauniversitaria.model.Imovel;
+
+import moradiaUniversitaria.model.Imovel;
 
 import static android.app.Activity.RESULT_OK;
 

@@ -1,23 +1,26 @@
-package br.com.moradiauniversitaria.model;
+package moradiaUniversitaria.model;
 
 import android.net.Uri;
 
-public class Imovel {
+import com.google.gson.annotations.SerializedName;
 
+public class Imovel {
     private String sobreVaga;
     private String sobreImovel;
     private Number valorVaga;
-    private Uri foto;
+    private String foto;
+    private Endereco endereco;
 
     public Imovel() {
     }
 
-    public Imovel(String sobreVaga, String sobreImovel, float valorVaga, Uri foto) {
+    public Imovel(String sobreVaga, String sobreImovel, Number valorVaga, String foto, Endereco endereco) {
         this.sobreVaga = sobreVaga;
         this.sobreImovel = sobreImovel;
         this.valorVaga = valorVaga;
         this.foto = foto;
-    };
+        this.endereco = endereco;
+    }
 
     public String getSobreVaga() {
         return sobreVaga;
@@ -39,16 +42,24 @@ public class Imovel {
         return valorVaga;
     }
 
-    public void setValorVaga(float valorVaga) {
+    public void setValorVaga(Number valorVaga) {
         this.valorVaga = valorVaga;
     }
 
-    public Uri getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(Uri foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override
@@ -57,7 +68,8 @@ public class Imovel {
                 "sobreVaga='" + sobreVaga + '\'' +
                 ", sobreImovel='" + sobreImovel + '\'' +
                 ", valorVaga=" + valorVaga +
-                ", foto='" + foto + '\'' +
+                ", foto=" + foto +
+                ", endereco=" + endereco +
                 '}';
     }
 }
