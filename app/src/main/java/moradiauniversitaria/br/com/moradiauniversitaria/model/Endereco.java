@@ -1,6 +1,4 @@
-package moradiaUniversitaria.model;
-
-import java.util.Objects;
+package moradiauniversitaria.br.com.moradiauniversitaria.model;
 
 class Endereco {
 

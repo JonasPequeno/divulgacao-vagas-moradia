@@ -1,15 +1,15 @@
-package moradiauniversitaria.br.com.moradiauniversitaria;
+package moradiauniversitaria.br.com.moradiauniversitaria.view;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.List;
 
-import moradiaUniversitaria.model.Imovel;
-import moradiaUniversitaria.service.ImovelService;
+import moradiauniversitaria.br.com.moradiauniversitaria.model.Imovel;
+import moradiauniversitaria.br.com.moradiauniversitaria.service.ImovelService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

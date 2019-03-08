@@ -1,6 +1,13 @@
-package moradiaUniversitaria.model;
+package moradiauniversitaria.br.com.moradiauniversitaria.model;
 
-public class Usuario {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Usuario implements Cloneable, Parcelable {
+
 
     private String nome;
     private String email;
@@ -20,6 +27,26 @@ public class Usuario {
         this.foto = foto;
         this.endereco = endereco;
     }
+
+    protected Usuario(Parcel in) {
+        nome = in.readString();
+        email = in.readString();
+        senha = in.readString();
+        instituicao = in.readString();
+        foto = in.readString();
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
 
     public String getNome() {
         return nome;
@@ -79,5 +106,19 @@ public class Usuario {
                 ", foto='" + foto + '\'' +
                 ", endereco=" + endereco +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeString(email);
+        dest.writeString(senha);
+        dest.writeString(instituicao);
+        dest.writeString(foto);
     }
 }

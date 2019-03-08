@@ -1,8 +1,4 @@
-package moradiaUniversitaria.model;
-
-import android.net.Uri;
-
-import com.google.gson.annotations.SerializedName;
+package moradiauniversitaria.br.com.moradiauniversitaria.model;
 
 public class Imovel {
     private String sobreVaga;

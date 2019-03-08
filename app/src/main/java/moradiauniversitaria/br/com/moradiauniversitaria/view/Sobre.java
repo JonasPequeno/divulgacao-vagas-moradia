@@ -1,10 +1,12 @@
-package moradiauniversitaria.br.com.moradiauniversitaria;
+package moradiauniversitaria.br.com.moradiauniversitaria.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import moradiauniversitaria.br.com.moradiauniversitaria.R;
 
 public class Sobre  extends Fragment {
     @Override

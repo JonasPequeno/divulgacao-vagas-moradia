@@ -1,8 +1,8 @@
-package moradiauniversitaria.br.com.moradiauniversitaria;
+package moradiauniversitaria.br.com.moradiauniversitaria.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +13,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import moradiaUniversitaria.model.Imovel;
-import moradiaUniversitaria.service.ImovelService;
+import moradiauniversitaria.br.com.moradiauniversitaria.model.Imovel;
+import moradiauniversitaria.br.com.moradiauniversitaria.service.ImovelService;
+import moradiauniversitaria.br.com.moradiauniversitaria.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

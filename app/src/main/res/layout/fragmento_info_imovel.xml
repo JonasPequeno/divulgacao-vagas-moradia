@@ -16,12 +16,12 @@
             android:paddingRight="12dp"
             android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
+            <androidx.viewpager.widget.ViewPager
                 android:id="@+id/fotosSlider"
                 android:layout_width="match_parent"
                 android:layout_height="187dp">
 
-            </android.support.v4.view.ViewPager>
+            </androidx.viewpager.widget.ViewPager>
 
             <TextView
                 android:layout_width="match_parent"

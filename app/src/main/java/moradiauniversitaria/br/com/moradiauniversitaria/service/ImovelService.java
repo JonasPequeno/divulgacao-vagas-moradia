@@ -1,10 +1,12 @@
-package moradiaUniversitaria.service;
+package moradiauniversitaria.br.com.moradiauniversitaria.service;
 
 import java.util.List;
 
-import moradiaUniversitaria.model.Imovel;
+import moradiauniversitaria.br.com.moradiauniversitaria.model.Imovel;
+import moradiauniversitaria.br.com.moradiauniversitaria.model.Usuario;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface ImovelService {
 
