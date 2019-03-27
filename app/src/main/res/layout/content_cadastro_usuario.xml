@@ -46,14 +46,33 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/campoTeleone"
+        android:id="@+id/campoEstado"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
         android:hint="Telefone"
         android:inputType="textPersonName"
-        android:maxLength="11" />
+        android:maxLength="11"
+        android:text="Estado" />
+
+    <EditText
+        android:id="@+id/campoNumero"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Numero"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/campoRua"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:hint="Rua"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/campoCidade"
@@ -70,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
+        android:text="Senha" />1
         android:hint="Senha"
         android:inputType="textPassword" />
 
@@ -91,6 +111,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:onClick="cadastra"
         android:background="@color/colorPrimaryDark"
         android:text="Concluir"
         android:textStyle="bold" />

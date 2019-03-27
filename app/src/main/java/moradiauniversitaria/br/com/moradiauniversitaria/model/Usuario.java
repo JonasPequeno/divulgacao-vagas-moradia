@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Usuario implements Cloneable, Parcelable {
 
 
+    private String _id;
     private String nome;
     private String email;
     private String senha;
@@ -19,8 +20,9 @@ public class Usuario implements Cloneable, Parcelable {
     public Usuario() {
     }
 
-    public Usuario(String nome, String email, String senha, String instituicao, String foto, Endereco endereco) {
+    public Usuario(String nome, String id, String email, String senha, String instituicao, String foto, Endereco endereco) {
         this.nome = nome;
+        this._id = id;
         this.email = email;
         this.senha = senha;
         this.instituicao = instituicao;
@@ -29,6 +31,7 @@ public class Usuario implements Cloneable, Parcelable {
     }
 
     protected Usuario(Parcel in) {
+        _id = in.readString();
         nome = in.readString();
         email = in.readString();
         senha = in.readString();
@@ -47,6 +50,14 @@ public class Usuario implements Cloneable, Parcelable {
             return new Usuario[size];
         }
     };
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String id) {
+        this._id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -97,28 +108,30 @@ public class Usuario implements Cloneable, Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "Usuario{" +
-                "nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                ", instituicao='" + instituicao + '\'' +
-                ", foto='" + foto + '\'' +
-                ", endereco=" + endereco +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
         dest.writeString(nome);
         dest.writeString(email);
         dest.writeString(senha);
         dest.writeString(instituicao);
         dest.writeString(foto);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + _id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", instituicao='" + instituicao + '\'' +
+                ", foto='" + foto + '\'' +
+                ", endereco=" + endereco +
+                '}';
     }
 }

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment, new CadastroImovel())
+                    .replace(R.id.fragment, new CadastroImovelActivity())
                     .addToBackStack(null)
                     .commit();
         } else

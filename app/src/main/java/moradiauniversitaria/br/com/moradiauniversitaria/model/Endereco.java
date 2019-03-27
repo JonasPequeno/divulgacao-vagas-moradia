@@ -1,18 +1,22 @@
 package moradiauniversitaria.br.com.moradiauniversitaria.model;
 
-class Endereco {
+public class Endereco {
 
     private String rua;
     private String cidade;
     private String estado;
-    private Long numero;
+    private String numero;
 
-    public Endereco(String rua, String cidade, String estado, Long numero) {
+    public Endereco(String rua, String cidade, String estado, String numero) {
         this.rua = rua;
         this.cidade = cidade;
         this.estado = estado;
         this.numero = numero;
     };
+
+    public Endereco() {
+
+    }
 
     public String getRua() {
         return rua;
@@ -38,13 +42,13 @@ class Endereco {
         this.estado = estado;
     }
 
-    public Long getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Long numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
-    }
+    };
 
     @Override
     public String toString() {
@@ -55,4 +59,5 @@ class Endereco {
                 ", numero=" + numero +
                 '}';
     }
+
 }

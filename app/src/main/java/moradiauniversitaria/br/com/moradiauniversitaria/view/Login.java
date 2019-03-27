@@ -2,12 +2,16 @@ package moradiauniversitaria.br.com.moradiauniversitaria.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import moradiauniversitaria.br.com.moradiauniversitaria.aplication.MoradiaUniversitaria;
 import moradiauniversitaria.br.com.moradiauniversitaria.model.Usuario;
 import moradiauniversitaria.br.com.moradiauniversitaria.service.LoginService;
 import moradiauniversitaria.br.com.moradiauniversitaria.R;
@@ -24,6 +29,7 @@ public class Login extends AppCompatActivity {
     private LocalBroadcastLogin localBroadcastLogin;
     private TextInputLayout campoEmail;
     private TextInputLayout campoSenha;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,7 @@ public class Login extends AppCompatActivity {
 
         localBroadcastLogin = new LocalBroadcastLogin();
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(localBroadcastLogin,intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(localBroadcastLogin, intentFilter);
 
         //startService(new Intent(this,LoginService.class));
     }
@@ -54,16 +60,16 @@ public class Login extends AppCompatActivity {
 
     public void chamaCadastro(View v) {
         Intent intent = new Intent(getApplicationContext(), CadastroUsuario.class);
-       startActivity(intent);
-   }
+        startActivity(intent);
+    }
 
     public void chamaHome(View v) {
+
         Intent intent = new Intent(getApplicationContext(), LoginService.class);
         Button btnAcesar = (Button) this.findViewById(R.id.btnAcessar);
+
         btnAcesar.setText(R.string.aguardar);
         btnAcesar.setEnabled(false);
-
-
 
         intent.putExtra("email", campoEmail.getEditText().getText().toString());
         intent.putExtra("senha", campoSenha.getEditText().getText().toString());
@@ -79,12 +85,31 @@ public class Login extends AppCompatActivity {
 
             Usuario user = intent.getParcelableExtra("usuario");
 
-            if(user != null) {
-                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent1);
-            }
+            if (user.getEmail() != null) {
 
-//            Log.i("usuario na responta", intent.getParcelableExtra("usuario").toString());
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                MoradiaUniversitaria.usuarioLogado = user;
+                startActivity(intent1);
+
+            } else {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Login.this);
+
+                alertDialog.setTitle("Credenciais Invalidas");
+                alertDialog.setIcon(R.mipmap.ic_alert_round);
+                alertDialog.setMessage("Por favor verifique suas credencias e tente novamente!");
+                alertDialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Button btnAcesar = (Button) Login.this.findViewById(R.id.btnAcessar);
+                        btnAcesar.setText("ACESSAR");
+                        btnAcesar.setEnabled(true);
+                    }
+                });
+                alertDialog.setCancelable(true);
+                AlertDialog alerta = alertDialog.create();
+                alerta.show();
+
+            }
         }
     }
 
