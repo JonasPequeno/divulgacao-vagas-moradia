@@ -67,6 +67,7 @@
                 android:text="Contato"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/campoContato"
                 android:layout_width="match_parent"
@@ -96,6 +97,7 @@
                 android:text="Cidade"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/campoCidade"
                 android:layout_width="match_parent"
@@ -137,7 +139,6 @@
                 android:inputType="numberDecimal" />
 
 
-
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
@@ -150,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/imagem"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
@@ -160,7 +161,7 @@
                     app:srcCompat="@mipmap/ic_launcher" />
             </TableRow>
 
-           <!-- <android.support.v4.view.ViewPager
+            <!-- <android.support.v4.view.ViewPager
                 android:id="@+id/fotosSlider"
                 android:layout_width="match_parent"
                 android:layout_height="187dp">
@@ -178,8 +179,8 @@
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:onClick="criaNovaVaga"
-                android:text="Cadastrar" />
+                android:text="Salvar Edicao"
+                />
 
         </LinearLayout>
     </ScrollView>

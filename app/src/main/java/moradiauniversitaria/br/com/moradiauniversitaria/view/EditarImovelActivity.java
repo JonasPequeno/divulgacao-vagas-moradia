@@ -14,11 +14,8 @@ import android.provider.MediaStore;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import android.renderscript.ScriptGroup;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,16 +25,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
-import moradiauniversitaria.br.com.moradiauniversitaria.aplication.BancoDAO;
 import moradiauniversitaria.br.com.moradiauniversitaria.aplication.MoradiaUniversitaria;
 import moradiauniversitaria.br.com.moradiauniversitaria.model.Endereco;
 import moradiauniversitaria.br.com.moradiauniversitaria.model.Imovel;
@@ -51,7 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
-public class CadastroImovelActivity extends Fragment {
+public class EditarImovelActivity extends Fragment {
     private View view;
 
     public static final int IMAGEM_INTERNA = 12;
@@ -61,17 +53,15 @@ public class CadastroImovelActivity extends Fragment {
     private AlertDialog.Builder alertDialog;
 
     private Imovel imoveleditar;
-    private  Bitmap bitmap;
-    private String imagemString;
-    private BancoDAO dao;
+
 
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_TAKE_PHOTO = 1;
     static String mCurrentPhotoPath;
 
-    public void CadastroImovel() {
-     //   imovel = new Imovel();
+    public void EditarImovelActivity() {
+        //   imovel = new Imovel();
     }
 
 
@@ -80,24 +70,33 @@ public class CadastroImovelActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragmento_cadastro_imovel, container, false);
+        view = inflater.inflate(R.layout.fragmento_editar_imovel, container, false);
 
         Button btnAdd = (Button) view.findViewById(R.id.btnAdd);
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getPermissions();
             }
         });
+        Imovel imovel = getActivity().getIntent().getParcelableExtra("imovel");
+        setaValores(imovel);
 
         Button btnSalvar = (Button) view.findViewById(R.id.btnSalvar);
+
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Imovel imovel = criaNovaVaga();
-                imovel.setFoto(mCurrentPhotoPath);
-                salvaImovel(imovel);
 
+                Imovel retornado = criaNovaVaga();
+
+                Log.i("Cria Vaga",retornado.toString());
+
+                retornado.set_id(imovel.get_id());
+                retornado.setFoto(mCurrentPhotoPath);
+
+                editarImovel(retornado);
             }
         });
         return view;
@@ -108,14 +107,12 @@ public class CadastroImovelActivity extends Fragment {
     }
 
     public void pegarImagem() {
-      /*  //criando uma intenção, pra alguma aplicação
+        //criando uma intenção, pra alguma aplicação
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         //especificando qual tipo será recebido
         intent.setType("image/*");
         //veficicar se alguma aplicação respndeu
-        startActivityForResult(intent, IMAGEM_INTERNA);*/
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, IMAGEM_INTERNA);
     };
 
     public Imovel criaNovaVaga() {
@@ -144,6 +141,9 @@ public class CadastroImovelActivity extends Fragment {
         imovel.setEndereco(endereco);
         imovel.setEmailUser(MoradiaUniversitaria.usuarioLogado.getEmail());
 
+
+        Log.i("Cria Vaga", imovel.toString());
+
         return imovel;
 
 
@@ -168,12 +168,12 @@ public class CadastroImovelActivity extends Fragment {
 
                     if( response.isSuccessful()) {
                         Imovel imovelRecebido = response.body();
-
+                        Log.d("Imovel Recebido", imovelRecebido.toString());
                         alertDialog = new AlertDialog.Builder(view.getContext());
 
                         alertDialog.setTitle("SUCESSO!");
                         alertDialog.setIcon(R.mipmap.ic_alert_round);
-                        alertDialog.setMessage("Cadastro feito com sucesso");
+                        alertDialog.setMessage("Sua divulgação foi criada com sucesso!");
                         AlertDialog alerta = alertDialog.create();
                         alerta.show();
 
@@ -211,15 +211,14 @@ public class CadastroImovelActivity extends Fragment {
         EditText numero = view.findViewById(R.id.campoNumero);
         EditText estado = view.findViewById(R.id.campoEstado);
 
-        
         rua.setText(imoveleditar.getEndereco().getRua());
         cidade.setText(imoveleditar.getEndereco().getCidade());
         numero.setText(imoveleditar.getEndereco().getNumero());
         estado.setText(imoveleditar.getEndereco().getEstado());
 
         descricaoImovel.setText(imoveleditar.getSobreImovel());
-        descricaoVaga.setText(imoveleditar.getSobreVaga());
-        valorVaga.setText(imoveleditar.getValorVaga());
+            descricaoVaga.setText(imoveleditar.getSobreVaga());
+        valorVaga.setText(String.valueOf(imoveleditar.getValorVaga()));
         imoveleditar.setEmailUser(MoradiaUniversitaria.usuarioLogado.getEmail());
 
         //editarImovel(imoveleditar);
@@ -244,15 +243,9 @@ public class CadastroImovelActivity extends Fragment {
 
                     if( response.isSuccessful()) {
                         Imovel imovelRecebido = response.body();
+
                         Log.d("Imovel Recebido", imovelRecebido.toString());
-                        alertDialog = new AlertDialog.Builder(view.getContext());
-
-                        alertDialog.setTitle("SUCESSO!");
-                        alertDialog.setIcon(R.mipmap.ic_alert_round);
-                        alertDialog.setMessage("Sua divulgação foi atualizada com sucesso!");
-                        AlertDialog alerta = alertDialog.create();
-                        alerta.show();
-
+                        Toast.makeText(getContext().getApplicationContext(), "Imovel Editado Com sucesso!", Toast.LENGTH_LONG).show();
                         //Intent intent = new Intent(view.getContext(),VagasDisponiveis.class);
                         //startActivity(intent);
 
@@ -276,10 +269,6 @@ public class CadastroImovelActivity extends Fragment {
         }
     }
 
-    public void abrirCamera () {
-        Intent intent = new Intent();
-        startActivityForResult(intent, 1);
-    }
 
     private void getPermissions() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
@@ -332,10 +321,12 @@ public class CadastroImovelActivity extends Fragment {
                 ImageView imagem = (ImageView)view.findViewById(R.id.imagem);
                 Bitmap bm1 = BitmapFactory.decodeStream(this.getActivity().getContentResolver().openInputStream(Uri.parse(mCurrentPhotoPath)));
                 imagem.setImageBitmap(bm1);
+
             }catch(FileNotFoundException fnex){
                 Toast.makeText(getContext().getApplicationContext(), "Foto não encontrada!", Toast.LENGTH_LONG).show();
             }
         }
     }
+
 
 }

@@ -16,48 +16,140 @@
             android:paddingRight="12dp"
             android:orientation="vertical">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/fotosSlider"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageDetalhe"
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="187dp">
-
-            </androidx.viewpager.widget.ViewPager>
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_casa" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 android:text="Sobre o Imovel"
+                android:paddingTop="10dp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/labelSobreImovel"
                 android:layout_width="match_parent"
+                android:paddingTop="5dp"
                 android:layout_height="wrap_content"
-                android:text="@string/loremIpison" />
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
                 android:text="Sobre a Vaga"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/labelSobreVaga"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/loremIpison" />
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Valor da Vaga"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Contato"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelContato"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Estado"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelEstato"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Cidade"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelCidade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Rua"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelRua"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Numero"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/labelNumero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="5dp"
+                android:text="@string/loremIpison"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="Valor"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/labelValorVaga"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="R$ 150 " />
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:text="R$ 150 "
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

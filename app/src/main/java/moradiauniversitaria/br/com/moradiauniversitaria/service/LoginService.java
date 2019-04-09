@@ -38,8 +38,8 @@ public class LoginService extends IntentService {
 
         Usuario usuario = new Usuario();
 
-        usuario.setEmail("Jonas@email.com");
-        usuario.setSenha("123");
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UsuarioService.URL_BASE)

@@ -13,13 +13,21 @@
             android:icon="@drawable/ic_menu_send"
             android:title="Cadastrar Imovel" />
         <item
+            android:id="@+id/nav_minhasVagas"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Minhas Duvilgaçoes" />
+        <item
             android:id="@+id/nav_lista_vagas"
             android:icon="@drawable/ic_menu_send"
             android:title="Lista de Vagas" />
-
         <item
             android:id="@+id/nav_sobre"
             android:icon="@drawable/ic_menu_send"
             android:title="Sobre" />
+
+        <item
+            android:id="@+id/sair"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Sair" />
     </group>
 </menu>

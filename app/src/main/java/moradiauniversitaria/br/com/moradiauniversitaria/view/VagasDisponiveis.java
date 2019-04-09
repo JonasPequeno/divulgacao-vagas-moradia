@@ -11,11 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import moradiauniversitaria.br.com.moradiauniversitaria.model.Imovel;
+import moradiauniversitaria.br.com.moradiauniversitaria.model.ImovelAdapter;
 import moradiauniversitaria.br.com.moradiauniversitaria.service.ImovelService;
 import moradiauniversitaria.br.com.moradiauniversitaria.R;
 import retrofit2.Call;
@@ -29,6 +36,10 @@ public class VagasDisponiveis extends Fragment {
     private View view;
     private List<Imovel> imoveis = new ArrayList<>();
 
+    private RecyclerView listaDeImoveis;
+    private ImovelAdapter adapter;
+
+
 
     public void VagasDisponiveis() {
     }
@@ -37,9 +48,10 @@ public class VagasDisponiveis extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragmento_vagas_disponiveis, container, false);
-
         Intent intent = new Intent(view.getContext(), MyService.class);
-
+        listaDeImoveis = (RecyclerView)  view.findViewById(R.id.listaVagas);
+        listaDeImoveis.setHasFixedSize(true);
+        listaDeImoveis.setLayoutManager(new LinearLayoutManager(view.getContext()));
         getImovel();
         return view;
     }
@@ -60,13 +72,14 @@ public class VagasDisponiveis extends Fragment {
             public void onResponse(Call<List<Imovel>> call, Response<List<Imovel>> response) {
                 if (response.isSuccessful()) {
                     imoveis = response.body();
+                    Log.d("puuu", "onResponse: "+imoveis.toString());
                     mostraDadosLista();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Imovel>> call, Throwable t) {
-                Log.i("Erro nessa bosta!", t.getMessage());
+                Log.i("ERRO :", t.getMessage());
 
             }
         });
@@ -74,9 +87,37 @@ public class VagasDisponiveis extends Fragment {
 
     private void mostraDadosLista() {
 
-        ListView vagas = (ListView) view.findViewById(R.id.listaVagas);
+        adapter = new ImovelAdapter(imoveis, onClickPrato());
+
+        listaDeImoveis.setAdapter(adapter);
+
+        /*
+        * ListView vagas = (ListView) view.findViewById(R.id.listaVagas);
         ArrayAdapter<Imovel> adapter = new ArrayAdapter<Imovel>(view.getContext(),
                 android.R.layout.simple_list_item_1, imoveis);
         vagas.setAdapter(adapter);
+        * */
+    }
+
+    private ImovelAdapter.CardOnClickListener onClickPrato(){
+        return new ImovelAdapter.CardOnClickListener() {
+            @Override
+            public void onClickCard(View view, int idx) {
+                Imovel item = imoveis.get(idx);//.findViewHolderForItemId(idx);
+                Log.i("Entoru ","Clienque");
+
+                getActivity().getIntent().putExtra("imovel", item);
+                Fragment fr = new InfoImovel();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+
+                fragmentTransaction.replace(R.id.fragment, fr);
+                fragmentTransaction.commit();
+
+                Toast.makeText(VagasDisponiveis.this.getContext(), "Clicou em"+ item.toString(), Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(getBaseContext(), PratoPedidoActivity.class);
+                //startActivity(intent);
+            }
+        };
     }
 }

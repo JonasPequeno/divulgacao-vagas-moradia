@@ -1,5 +1,6 @@
 package moradiauniversitaria.br.com.moradiauniversitaria.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import moradiauniversitaria.br.com.moradiauniversitaria.R;
+import moradiauniversitaria.br.com.moradiauniversitaria.aplication.MoradiaUniversitaria;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +22,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.fragment, new VagasDisponiveis())
+        .addToBackStack(null)
+        .commit();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,12 +44,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        startActivity(new Intent(this, MainActivity.class)); //O efeito ao ser pressionado do botão (no caso abre a activity)
+        //finishAffinity(); //Método para matar a activity e não deixa-lá indexada na pilhagem
+        finish();
+
     }
 
     @Override
@@ -80,6 +86,14 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         } else
+        if (id == R.id.nav_minhasVagas) {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment, new MinhasVagas())
+                    .addToBackStack(null)
+                    .commit();
+        } else
             if (id == R.id.nav_perfil) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -89,22 +103,31 @@ public class MainActivity extends AppCompatActivity
 
         } else
             if (id == R.id.nav_sobre) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment, new Sobre())
-                    .addToBackStack(null)
-                    .commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, new Sobre())
+                        .addToBackStack(null)
+                        .commit();
+
         } else
+            if (id == R.id.sair) {
+                Intent intent = new Intent(this, Login.class);
+                startActivity(intent);
+
+            }else
+
             if( id == R.id.nav_lista_vagas) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment, new VagasDisponiveis())
                     .addToBackStack(null)
                     .commit();
+
         };
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

@@ -12,7 +12,7 @@ import retrofit2.http.Path;
 
 public interface UsuarioService {
 
-    public static final String URL_BASE = "http://192.168.2.111:3000/api/";
+    public static final String URL_BASE = "http://10.3.135.130/api/";
 
 
     @POST("usuario/autentica/")
