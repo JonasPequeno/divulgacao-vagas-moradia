@@ -41,6 +41,11 @@ public class LoginService extends IntentService {
         usuario.setEmail(email);
         usuario.setSenha(senha);
 
+        //usuario.setEmail("Jonas@email.com");
+        //usuario.setSenha("123");
+        usuario.setEmail(email);
+        usuario.setSenha(senha);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UsuarioService.URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create())

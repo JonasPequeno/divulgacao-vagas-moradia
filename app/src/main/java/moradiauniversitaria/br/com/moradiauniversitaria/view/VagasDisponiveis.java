@@ -114,7 +114,7 @@ public class VagasDisponiveis extends Fragment {
                 fragmentTransaction.replace(R.id.fragment, fr);
                 fragmentTransaction.commit();
 
-                Toast.makeText(VagasDisponiveis.this.getContext(), "Clicou em"+ item.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(VagasDisponiveis.this.getContext(), "Clicou em"+ item.toString(), Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(getBaseContext(), PratoPedidoActivity.class);
                 //startActivity(intent);
             }

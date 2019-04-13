@@ -75,6 +75,7 @@ public class InfoImovel extends Fragment {
         estado.setText(imovel.getEndereco().getEstado());
         cidade.setText(imovel.getEndereco().getCidade());
         numero.setText(imovel.getEndereco().getNumero());
+        contato.setText(imovel.getContato());
         rua.setText(imovel.getEndereco().getRua());
         valorVaga.setText("R$ " + String.valueOf(imovel.getValorVaga()));
     }

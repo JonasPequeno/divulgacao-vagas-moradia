@@ -10,19 +10,21 @@ public class Imovel implements Parcelable {
     private String foto;
     private Endereco endereco;
     private String emailUser;
+    private String contato;
     private String _id;
 
 
     public Imovel() {
     }
 
-    public Imovel(String sobreVaga,String emailUser, String sobreImovel, int valorVaga, String foto, Endereco endereco) {
+    public Imovel(String sobreVaga,String contato, String emailUser, String sobreImovel, int valorVaga, String foto, Endereco endereco) {
         this.sobreVaga = sobreVaga;
         this.emailUser = emailUser;
         this.sobreImovel = sobreImovel;
         this.valorVaga = valorVaga;
         this.foto = foto;
         this.endereco = endereco;
+
 
     }
 
@@ -99,6 +101,14 @@ public class Imovel implements Parcelable {
 
     public String get_id() {
         return _id;
+    }
+
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
     }
 
     @Override

@@ -25,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -177,8 +179,8 @@ public class EditarImovelActivity extends Fragment {
                         AlertDialog alerta = alertDialog.create();
                         alerta.show();
 
-                        //Intent intent = new Intent(view.getContext(),VagasDisponiveis.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(view.getContext(),VagasDisponiveis.class);
+                        startActivity(intent);
 
                     }
                 }
@@ -208,6 +210,7 @@ public class EditarImovelActivity extends Fragment {
         EditText contato = view.findViewById(R.id.campoContato);
         EditText cidade = view.findViewById(R.id.campoCidade);
         EditText rua = view.findViewById(R.id.campoRua);
+
         EditText numero = view.findViewById(R.id.campoNumero);
         EditText estado = view.findViewById(R.id.campoEstado);
 
@@ -215,6 +218,7 @@ public class EditarImovelActivity extends Fragment {
         cidade.setText(imoveleditar.getEndereco().getCidade());
         numero.setText(imoveleditar.getEndereco().getNumero());
         estado.setText(imoveleditar.getEndereco().getEstado());
+        contato.setText(imoveleditar.getContato());
 
         descricaoImovel.setText(imoveleditar.getSobreImovel());
             descricaoVaga.setText(imoveleditar.getSobreVaga());
@@ -243,11 +247,13 @@ public class EditarImovelActivity extends Fragment {
 
                     if( response.isSuccessful()) {
                         Imovel imovelRecebido = response.body();
+                        alertDialog = new AlertDialog.Builder(view.getContext());
 
-                        Log.d("Imovel Recebido", imovelRecebido.toString());
-                        Toast.makeText(getContext().getApplicationContext(), "Imovel Editado Com sucesso!", Toast.LENGTH_LONG).show();
-                        //Intent intent = new Intent(view.getContext(),VagasDisponiveis.class);
-                        //startActivity(intent);
+                        alertDialog.setTitle("Sucesso!");
+                        alertDialog.setIcon(R.mipmap.ic_alert_round);
+                        alertDialog.setMessage("Imovel editado com sucesso!");
+                        AlertDialog alerta = alertDialog.create();
+                        alerta.show();
 
                     }
                 }
@@ -320,7 +326,15 @@ public class EditarImovelActivity extends Fragment {
             try {
                 ImageView imagem = (ImageView)view.findViewById(R.id.imagem);
                 Bitmap bm1 = BitmapFactory.decodeStream(this.getActivity().getContentResolver().openInputStream(Uri.parse(mCurrentPhotoPath)));
+                Picasso.get()
+                        .load(mCurrentPhotoPath)
+                        .placeholder(R.mipmap.ic_launcher) // optional
+                        .error(R.mipmap.ic_launcher)
+                        .resize(256, 256).centerCrop()
+                        .into(imagem);
                 imagem.setImageBitmap(bm1);
+
+
 
             }catch(FileNotFoundException fnex){
                 Toast.makeText(getContext().getApplicationContext(), "Foto não encontrada!", Toast.LENGTH_LONG).show();

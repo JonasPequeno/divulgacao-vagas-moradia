@@ -131,7 +131,6 @@ public class Usuario implements Cloneable, Parcelable {
                 ", senha='" + senha + '\'' +
                 ", instituicao='" + instituicao + '\'' +
                 ", foto='" + foto + '\'' +
-                ", endereco=" + endereco.toString() +
                 '}';
     }
 }

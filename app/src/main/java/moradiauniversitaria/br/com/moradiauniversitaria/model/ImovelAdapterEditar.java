@@ -54,6 +54,7 @@ public class ImovelAdapterEditar extends RecyclerView.Adapter<ImovelAdapterEdita
         Picasso.get()
                 .load(imovel.getFoto())
                 .placeholder(R.mipmap.ic_launcher) // optional
+                .resize(256, 256).centerCrop()
                 .error(R.mipmap.ic_launcher) //if error
                 .into(holder.imagem);
 

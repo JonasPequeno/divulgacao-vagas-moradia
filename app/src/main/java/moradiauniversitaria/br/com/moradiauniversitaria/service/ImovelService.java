@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface ImovelService {
 
-    public static final String URL_BASE = "http://10.3.135.130/api/";
+    public static final String URL_BASE = "http://192.168.2.114:3000/api/";
 
     @GET("imovel/")
     Call<List<Imovel>> getImoveis();

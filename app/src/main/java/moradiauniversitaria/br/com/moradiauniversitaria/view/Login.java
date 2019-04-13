@@ -89,6 +89,7 @@ public class Login extends AppCompatActivity {
 
                 Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                 MoradiaUniversitaria.usuarioLogado = user;
+                Log.d("Usuario recebido", user.toString());
                 startActivity(intent1);
 
             } else {

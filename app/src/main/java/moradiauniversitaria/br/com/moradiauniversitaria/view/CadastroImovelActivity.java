@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.lang.UCharacter;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,6 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -50,6 +53,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
+import static moradiauniversitaria.br.com.moradiauniversitaria.aplication.MoradiaUniversitaria.usuarioLogado;
 
 public class CadastroImovelActivity extends Fragment {
     private View view;
@@ -128,6 +132,9 @@ public class CadastroImovelActivity extends Fragment {
         EditText rua = view.findViewById(R.id.campoRua);
         EditText numero = view.findViewById(R.id.campoNumero);
         EditText estado = view.findViewById(R.id.campoEstado);
+        ImageView fotoImovel = view.findViewById(R.id.image);
+
+
 
         Endereco endereco = new Endereco();
 
@@ -142,6 +149,7 @@ public class CadastroImovelActivity extends Fragment {
         imovel.setSobreVaga(descricaoVaga.getText().toString());
         imovel.setValorVaga( Integer.parseInt(valorVaga.getText().toString()));
         imovel.setEndereco(endereco);
+        imovel.setContato(contato.getText().toString());
         imovel.setEmailUser(MoradiaUniversitaria.usuarioLogado.getEmail());
 
         return imovel;
@@ -210,8 +218,10 @@ public class CadastroImovelActivity extends Fragment {
         EditText rua = view.findViewById(R.id.campoRua);
         EditText numero = view.findViewById(R.id.campoNumero);
         EditText estado = view.findViewById(R.id.campoEstado);
+        ImageView foto = view.findViewById(R.id.imagem);
 
-        
+        foto.setImageBitmap(bitmap);
+
         rua.setText(imoveleditar.getEndereco().getRua());
         cidade.setText(imoveleditar.getEndereco().getCidade());
         numero.setText(imoveleditar.getEndereco().getNumero());
@@ -220,6 +230,14 @@ public class CadastroImovelActivity extends Fragment {
         descricaoImovel.setText(imoveleditar.getSobreImovel());
         descricaoVaga.setText(imoveleditar.getSobreVaga());
         valorVaga.setText(imoveleditar.getValorVaga());
+
+        Picasso.get()
+                .load(imoveleditar.getFoto())
+                .placeholder(R.mipmap.ic_launcher) // optional
+                .error(R.mipmap.ic_launcher)
+                .resize(256, 256).centerCrop()
+                .into(foto);
+
         imoveleditar.setEmailUser(MoradiaUniversitaria.usuarioLogado.getEmail());
 
         //editarImovel(imoveleditar);
@@ -315,7 +333,8 @@ public class CadastroImovelActivity extends Fragment {
                 mCurrentPhotoPath = "file:" + photoFile.getAbsolutePath();
             }
             catch(IOException ex){
-                Toast.makeText(getContext().getApplicationContext(), "Erro ao tirar a foto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(),
+                        "Erro ao tirar a foto", Toast.LENGTH_SHORT).show();
             }
 
             if (photoFile != null) {
@@ -330,8 +349,21 @@ public class CadastroImovelActivity extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             try {
                 ImageView imagem = (ImageView)view.findViewById(R.id.imagem);
-                Bitmap bm1 = BitmapFactory.decodeStream(this.getActivity().getContentResolver().openInputStream(Uri.parse(mCurrentPhotoPath)));
-                imagem.setImageBitmap(bm1);
+
+                imagem.getLayoutParams().width = 400;
+                imagem.getLayoutParams().height = 400;
+
+                Bitmap bitmap = BitmapFactory.decodeStream(this.getActivity().getContentResolver().
+                        openInputStream(Uri.parse(mCurrentPhotoPath)));
+
+
+                Picasso.get()
+                        .load(mCurrentPhotoPath)
+                        .placeholder(R.mipmap.ic_launcher) // optional
+                        .error(R.mipmap.ic_launcher)
+                        .resize(256, 256).centerCrop()
+                        .into(imagem);
+
             }catch(FileNotFoundException fnex){
                 Toast.makeText(getContext().getApplicationContext(), "Foto não encontrada!", Toast.LENGTH_LONG).show();
             }
